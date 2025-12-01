@@ -1,4 +1,19 @@
 <script>
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    async function fetchData() {
+      const res = await fetch("/api");
+      const json = await res.json();
+      console.log(json);
+    }
+
+    const interval = setInterval(fetchData, 1500);
+    fetchData();
+
+    return () => clearInterval(interval);
+  });
+
   let sh = new Array(10).fill(0);
   let el = new Array(10).fill(0);
   let ln = ["exit 1", "exit 2", "exit 3", "exit 4", "exit 5"];
