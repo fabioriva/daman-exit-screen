@@ -1,17 +1,17 @@
 <script>
   import { onMount } from "svelte";
-  let data = $state([]);
+  let plc = $state({ data: [] });
   onMount(() => {
     async function fetchData() {
       const res = await fetch("/api");
-      data = await res.json();
+      plc = await res.json();
     }
     const interval = setInterval(fetchData, 1500);
     fetchData();
     return () => clearInterval(interval);
   });
   $effect(() => {
-    $inspect(data);
+    $inspect(plc);
   });
   let labels = [
     "exit 1",
@@ -32,7 +32,7 @@
 >
   <div class="grid gap-3">
     <div class="flex items-center justify-center rounded-xl">North</div>
-    {#each data.slice(0, 10) as tag}
+    {#each plc.data.slice(0, 10) as tag}
       <div
         class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
           0 && 'text-neutral-950'}"
@@ -53,7 +53,7 @@
           {label}
         </div>
       {/each}
-      {#each data.slice(0, 10) as tag}
+      {#each plc.data.slice(0, 10) as tag}
         <div
           class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
             0 && 'text-neutral-950'}"
@@ -62,7 +62,7 @@
         </div>
       {/each}
       <div class="col-span-5 h-16"></div>
-      {#each data.slice(0, 10) as tag}
+      {#each plc.data.slice(0, 10) as tag}
         <div
           class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
             0 && 'text-neutral-950'}"
@@ -79,7 +79,7 @@
   </div>
   <div class="grid gap-3">
     <div class="flex items-center justify-center rounded-xl">South</div>
-    {#each data.slice(10, 20) as tag}
+    {#each plc.data.slice(10, 20) as tag}
       <div
         class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
           0 && 'text-neutral-950'}"

@@ -1,8 +1,3 @@
-// export const APS = 'daman'
-// export const HOST =
-//   process.env.NODE_ENV !== 'production'
-//     ? process.env.DEVELOPMENT_SERVER
-//     : process.env.PRODUCTION_SERVER
 export const HTTP = 3001;
 export const PLC = {
   ip: "192.168.24.2",
