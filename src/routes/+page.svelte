@@ -12,7 +12,7 @@
     <div class="flex items-center justify-center rounded-xl">North</div>
     {#each sh as s}
       <div
-        class="flex items-center justify-center rounded-xl bg-neutral-950 {s !==
+        class="flex items-center justify-center rounded-xl bg-neutral-950 {s ===
           0 && 'text-neutral-950'}"
       >
         {s}
@@ -42,7 +42,7 @@
       <div class="col-span-5 h-16"></div>
       {#each el as e}
         <div
-          class="flex items-center justify-center rounded-xl bg-neutral-950 {e !==
+          class="flex items-center justify-center rounded-xl bg-neutral-950 {e ===
             0 && 'text-neutral-950'}"
         >
           {e}
