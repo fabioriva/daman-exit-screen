@@ -1,23 +1,30 @@
 <script>
   import { onMount } from "svelte";
-
+  let data = $state([]);
   onMount(() => {
     async function fetchData() {
       const res = await fetch("/api");
-      const json = await res.json();
-      console.log(json);
+      data = await res.json();
     }
-
     const interval = setInterval(fetchData, 1500);
     fetchData();
-
     return () => clearInterval(interval);
   });
-
-  let sh = new Array(10).fill(0);
-  let el = new Array(10).fill(0);
-  let ln = ["exit 1", "exit 2", "exit 3", "exit 4", "exit 5"];
-  let ls = ["exit 6", "exit 7", "exit 8", "exit 9", "exit 10"];
+  $effect(() => {
+    $inspect(data);
+  });
+  let labels = [
+    "exit 1",
+    "exit 2",
+    "exit 3",
+    "exit 4",
+    "exit 5",
+    "exit 6",
+    "exit 7",
+    "exit 8",
+    "exit 9",
+    "exit 10",
+  ];
 </script>
 
 <div
@@ -25,12 +32,12 @@
 >
   <div class="grid gap-3">
     <div class="flex items-center justify-center rounded-xl">North</div>
-    {#each sh as s}
+    {#each data.slice(0, 10) as tag}
       <div
-        class="flex items-center justify-center rounded-xl bg-neutral-950 {s ===
+        class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
           0 && 'text-neutral-950'}"
       >
-        {s}
+        {tag}
       </div>
     {/each}
   </div>
@@ -41,43 +48,43 @@
       >
         AVS Exit Monitoring System
       </h1>
-      {#each ln as l}
+      {#each labels.slice(0, 5) as label}
         <div class="flex items-center justify-center rounded-xl capitalize">
-          {l}
+          {label}
         </div>
       {/each}
-      {#each el as e}
+      {#each data.slice(0, 10) as tag}
         <div
-          class="flex items-center justify-center rounded-xl bg-neutral-950 {e ===
+          class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
             0 && 'text-neutral-950'}"
         >
-          {e}
+          {tag}
         </div>
       {/each}
       <div class="col-span-5 h-16"></div>
-      {#each el as e}
+      {#each data.slice(0, 10) as tag}
         <div
-          class="flex items-center justify-center rounded-xl bg-neutral-950 {e ===
+          class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
             0 && 'text-neutral-950'}"
         >
-          {e}
+          {tag}
         </div>
       {/each}
-      {#each ls as l}
+      {#each labels.slice(5, 10) as label}
         <div class="flex items-center justify-center rounded-xl capitalize">
-          {l}
+          {label}
         </div>
       {/each}
     </div>
   </div>
   <div class="grid gap-3">
     <div class="flex items-center justify-center rounded-xl">South</div>
-    {#each sh as s}
+    {#each data.slice(10, 20) as tag}
       <div
-        class="flex items-center justify-center rounded-xl bg-neutral-950 {s ===
+        class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
           0 && 'text-neutral-950'}"
       >
-        {s}
+        {tag}
       </div>
     {/each}
   </div>
