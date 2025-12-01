@@ -55,8 +55,8 @@
       {/each}
       {#each plc.data.slice(0, 10) as tag}
         <div
-          class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
-            0 && 'text-neutral-950'}"
+          class="flex items-center justify-center rounded-xl bg-green-700 {tag ===
+            0 && 'bg-neutral-950 text-neutral-950'}"
         >
           {tag}
         </div>
@@ -64,8 +64,8 @@
       <div class="col-span-5 h-16"></div>
       {#each plc.data.slice(0, 10) as tag}
         <div
-          class="flex items-center justify-center rounded-xl bg-neutral-950 {tag ===
-            0 && 'text-neutral-950'}"
+          class="flex items-center justify-center rounded-xl bg-green-700 {tag ===
+            0 && 'bg-neutral-950 text-neutral-950'}"
         >
           {tag}
         </div>
