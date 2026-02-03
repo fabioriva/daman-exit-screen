@@ -11,7 +11,7 @@ const log = (req) =>
     url: req.getUrl(),
   });
 
-const obj = { data: Array(20).fill(0) };
+const obj = { data: Array(40).fill(0) };
 const main = async () => {
   try {
     const app = uWS.App().listen(def.HTTP, (token) => console.info(token));

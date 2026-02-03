@@ -10,6 +10,6 @@ export const DATA_READ = {
   area: 0x84,
   dbNumber: 182,
   start: 0,
-  amount: 40,
+  amount: 80,
   wordLen: 0x02,
 };

@@ -46,7 +46,7 @@ class PLC extends EventEmitter {
         offset += 2;
       }
     } catch (e) {
-      obj.data = new Array(20).fill(0);
+      obj.data = new Array(40).fill(0);
       this.error(e);
     }
   }
