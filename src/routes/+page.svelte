@@ -71,7 +71,8 @@
 >
   <div class="connection-status col-span-7" class:healthy={status === "online"} role="status" aria-live="polite">
     <strong>{messages[status]}</strong>
-    <span class="tabular-nums">Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
+    <small class="copyright">© {new Date(now).getFullYear()} Sotefin SA</small>
+    <span class="last-read tabular-nums">Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
   </div>
   <div class="queue-column" class:readings-stale={status !== "online"}>
     <Label value={"Queue S"}></Label>
@@ -82,7 +83,7 @@
   <div class="exit-column col-span-5" class:readings-stale={status !== "online"}>
     <div class="exit-grid">
       <header class="dashboard-heading flex flex-col items-center justify-center rounded-xl col-span-5 text-center">
-        <p class="company-name font-semibold tracking-widest text-neutral-400">SOTEFIN SA</p>
+        <p class="company-name font-semibold tracking-widest text-neutral-400">Burj Daman</p>
         <h1 class="dashboard-title font-semibold text-neutral-100">
           AVS Exit Monitoring System
         </h1>
@@ -159,9 +160,9 @@
     white-space: nowrap;
   }
   .connection-status {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
     gap: 0.5dvh 1.5vw;
     padding: 0.75dvh 0.8vw;
     border: 2px solid #f59e0b;
@@ -177,8 +178,19 @@
     background: #171717;
     color: #d4d4d4;
   }
+  .last-read {
+    min-width: 0;
+    justify-self: end;
+    text-align: right;
+  }
+  .copyright {
+    color: #a3a3a3;
+    font-size: 0.8em;
+    white-space: nowrap;
+  }
   .connection-status strong {
     display: flex;
+    min-width: 0;
     align-items: center;
     gap: 0.6vw;
     font-weight: 600;
