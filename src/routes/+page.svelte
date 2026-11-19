@@ -69,11 +69,6 @@
 <div
   class="screen bg-neutral-950 grid text-neutral-100"
 >
-  <div class="connection-status col-span-7" class:healthy={status === "online"} role="status" aria-live="polite">
-    <strong>{messages[status]}</strong>
-    <small class="copyright">© {new Date(now).getFullYear()} Sotefin SA</small>
-    <span class="last-read tabular-nums">Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
-  </div>
   <div class="queue-column" class:readings-stale={status !== "online"}>
     <Label value={"Queue S"}></Label>
     {#each plc.data.slice(30, 40) as tag}
@@ -108,6 +103,11 @@
       <Queue value={tag}></Queue>
     {/each}
   </div>
+  <footer class="connection-status col-span-7" class:healthy={status === "online"} role="status" aria-live="polite">
+    <strong>{messages[status]}</strong>
+    <small class="copyright">© {new Date(now).getFullYear()} Sotefin SA</small>
+    <span class="last-read tabular-nums">Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
+  </footer>
 </div>
 
 <style>
@@ -120,7 +120,7 @@
     height: 100dvh;
     box-sizing: border-box;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
     gap: var(--screen-gap);
     padding: var(--screen-gap);
     overflow: hidden;
