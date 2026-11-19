@@ -67,23 +67,23 @@
 </script>
 
 <div
-  class="screen bg-neutral-900 grid h-dvh grid-cols-7 grid-rows-[auto_minmax(0,1fr)] gap-3 p-3 text-6xl text-neutral-100"
+  class="screen bg-neutral-950 grid text-neutral-100"
 >
   <div class="connection-status col-span-7" class:healthy={status === "online"} role="status" aria-live="polite">
     <strong>{messages[status]}</strong>
-    <span>Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
+    <span class="tabular-nums">Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
   </div>
-  <div class="grid gap-3" class:readings-stale={status !== "online"}>
+  <div class="queue-column" class:readings-stale={status !== "online"}>
     <Label value={"Queue S"}></Label>
     {#each plc.data.slice(30, 40) as tag}
       <Queue value={tag}></Queue>
     {/each}
   </div>
-  <div class="grid gap-3 col-span-5" class:readings-stale={status !== "online"}>
-    <div class="grid grid-cols-5 gap-3">
-      <header class="flex flex-col items-center justify-center gap-2 rounded-xl col-span-5 text-center">
-        <p class="text-3xl font-semibold tracking-widest text-neutral-300">SOTEFIN SA</p>
-        <h1 class="font-bold text-yellow-500 text-7xl">
+  <div class="exit-column col-span-5" class:readings-stale={status !== "online"}>
+    <div class="exit-grid">
+      <header class="dashboard-heading flex flex-col items-center justify-center rounded-xl col-span-5 text-center">
+        <p class="company-name font-semibold tracking-widest text-neutral-400">SOTEFIN SA</p>
+        <h1 class="dashboard-title font-semibold text-neutral-100">
           AVS Exit Monitoring System
         </h1>
       </header>
@@ -101,7 +101,7 @@
       {/each}
     </div>
   </div>
-  <div class="grid gap-3" class:readings-stale={status !== "online"}>
+  <div class="queue-column" class:readings-stale={status !== "online"}>
     <Label value={"Queue N"}></Label>
     {#each plc.data.slice(10, 20) as tag}
       <Queue value={tag}></Queue>
@@ -110,32 +110,95 @@
 </div>
 
 <style>
+  .screen {
+    --screen-gap: min(0.8vw, 1dvh);
+    --exit-font-size: min(3.25vw, 9dvh);
+    --queue-font-size: min(3vw, 5dvh);
+    --label-font-size: min(3vw, 5dvh);
+    width: 100%;
+    height: 100dvh;
+    box-sizing: border-box;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--screen-gap);
+    padding: var(--screen-gap);
+    overflow: hidden;
+    cursor: none;
+    font-family: "Roboto", sans-serif;
+  }
+  .queue-column,
+  .exit-column,
+  .exit-grid {
+    display: grid;
+    min-width: 0;
+    min-height: 0;
+    gap: var(--screen-gap);
+  }
+  .queue-column {
+    grid-template-rows: repeat(11, minmax(0, 1fr));
+  }
+  .exit-column {
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .exit-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1.15fr) minmax(0, 0.65fr)
+      repeat(2, minmax(0, 1fr)) minmax(0, 0.65fr) repeat(2, minmax(0, 1fr));
+  }
+  .dashboard-heading {
+    min-width: 0;
+    min-height: 0;
+    gap: min(0.4vw, 0.75dvh);
+    line-height: 1.1;
+  }
+  .company-name {
+    font-size: min(1.5vw, 2.5dvh);
+  }
+  .dashboard-title {
+    font-size: min(3vw, 5dvh);
+    white-space: nowrap;
+  }
   .connection-status {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.5rem 1.5rem;
-    padding: 0.75rem 1rem;
+    gap: 0.5dvh 1.5vw;
+    padding: 0.75dvh 0.8vw;
     border: 2px solid #f59e0b;
     border-radius: 0.75rem;
     background: #451a03;
     color: #fef3c7;
-    font-size: clamp(1rem, 1.5vw, 1.75rem);
+    min-width: 0;
+    font-size: min(1.4vw, 2.2dvh);
+    line-height: 1.25;
   }
   .connection-status.healthy {
-    border-color: #15803d;
-    background: #052e16;
-    color: #dcfce7;
+    border-color: #404040;
+    background: #171717;
+    color: #d4d4d4;
+  }
+  .connection-status strong {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    font-weight: 600;
+  }
+  .connection-status strong::before {
+    content: "";
+    width: 0.6em;
+    height: 0.6em;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #fbbf24;
+  }
+  .connection-status.healthy strong::before {
+    background: #34d399;
   }
   .readings-stale {
     filter: grayscale(1);
     opacity: 0.6;
   }
-  .readings-stale :global(.animate-pulse) {
+  .readings-stale :global(.display-cell) {
     animation: none;
-  }
-  .screen {
-    cursor: none;
-    font-family: "Roboto", sans-serif;
   }
 </style>

@@ -116,8 +116,10 @@ pm2 start ecosystem.config.cjs
 In caso di errore PLC l'API conserva i dati precedenti e imposta `online: false`.
 
 Lo schermo distingue attesa iniziale, PLC scollegato, API non disponibile e
-dati più vecchi di 5 secondi. I valori non aggiornati diventano grigi e smettono
-di lampeggiare. Il proxy restituisce `502` per errori del backend o risposte
+dati più vecchi di 5 secondi. Le uscite con valore diverso da zero lampeggiano
+per indicare i veicoli in movimento, rispettando la preferenza di movimento ridotto
+del browser. I dati non aggiornati diventano grigi e smettono di lampeggiare.
+Il proxy restituisce `502` per errori del backend o risposte
 non valide e `504` se la richiesta supera 3 secondi.
 
 ## Verifiche
