@@ -2,16 +2,15 @@ module.exports = {
   apps: [
   {
     name: "api",
-    script: "index.js",
-    args: "--name api",
-    cwd: "./api", // dir from which app is launched
+    script: "api/index.js",
+    cwd: __dirname,
     out_file: "/dev/null", // disable logs saving
   },
   {
     name: "app",
-    script: "index.js",
-    args: "--name api",
-    cwd: "./build", // dir from which app is launched
+    script: "build/index.js",
+    node_args: "--env-file-if-exists=.env",
+    cwd: __dirname,
     out_file: "/dev/null", // disable logs saving
   }]
 }

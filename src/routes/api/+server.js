@@ -1,8 +1,6 @@
 import { PUBLIC_API } from "$env/static/public";
-import { json } from "@sveltejs/kit";
+import { proxyPlcData } from "$lib/server/plc-proxy.js";
 
-export async function GET({ request }) {
-  const res = await fetch(PUBLIC_API);
-  const data = await res.json();
-  return json(data);
+export async function GET({ fetch, request }) {
+  return proxyPlcData(PUBLIC_API, { fetch, signal: request.signal });
 }
