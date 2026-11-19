@@ -74,36 +74,36 @@
     <span>Last valid read: {plc.lastUpdated === null ? "none" : new Date(plc.lastUpdated).toLocaleTimeString()}</span>
   </div>
   <div class="grid gap-3" class:readings-stale={status !== "online"}>
-    <Label value={"Queue N"}></Label>
-    {#each plc.data.slice(10, 20) as tag}
+    <Label value={"Queue S"}></Label>
+    {#each plc.data.slice(30, 40) as tag}
       <Queue value={tag}></Queue>
     {/each}
   </div>
   <div class="grid gap-3 col-span-5" class:readings-stale={status !== "online"}>
     <div class="grid grid-cols-5 gap-3">
-      <h1
-        class="flex items-center justify-center rounded-xl col-span-5 font-bold text-yellow-500 text-7xl"
-      >
-        AVS Exit Monitoring System
-      </h1>
+      <header class="flex flex-col items-center justify-center gap-2 rounded-xl col-span-5 text-center">
+        <p class="text-3xl font-semibold tracking-widest text-neutral-300">SOTEFIN SA</p>
+        <h1 class="font-bold text-yellow-500 text-7xl">
+          AVS Exit Monitoring System
+        </h1>
+      </header>
       {#each labels.slice(0, 5) as label}
         <Label value={label}></Label>
       {/each}
       {#each plc.data.slice(0, 10) as tag}
         <Eu value={tag}></Eu>
       {/each}
-      <div class="col-span-5 h-16"></div>
-      {#each plc.data.slice(20, 30) as tag}
-        <Eu value={tag}></Eu>
-      {/each}
       {#each labels.slice(5, 10) as label}
         <Label value={label}></Label>
+      {/each}
+      {#each plc.data.slice(20, 30) as tag}
+        <Eu value={tag}></Eu>
       {/each}
     </div>
   </div>
   <div class="grid gap-3" class:readings-stale={status !== "online"}>
-    <Label value={"Queue S"}></Label>
-    {#each plc.data.slice(30, 40) as tag}
+    <Label value={"Queue N"}></Label>
+    {#each plc.data.slice(10, 20) as tag}
       <Queue value={tag}></Queue>
     {/each}
   </div>
